@@ -1,0 +1,50 @@
+{
+  "name": "tonopah",
+  "version": "1",
+  "manifest_version": 2,
+  "minimum_chrome_version": "35",
+  "description": "sup with you google",
+  "content_scripts": [
+    {
+      "matches": "<%= all_google_maps_urls %>",
+      "js": ["inject_frame.min.js"],
+      "all_frames": true,
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["mapapi_inject.min.js"],
+      "all_frames": true,
+      "run_at": "document_start"
+    }
+  ],
+  "background": {
+    "scripts": [
+      "src/jquery.js",
+      "src/Shim.js",
+      "src/pref.js",
+      "src/background.js"
+    ],
+    "persistent": false
+  },
+  "web_accessible_resources": [
+    "images/button_active.png",
+    "images/button_inactive.png",
+    "inject_content.min.js"
+  ],
+  "options_page": "src/options/options.html",
+  "icons": {
+    "16": "images/maps_16.png",
+    "48": "images/maps_48.png",
+    "128": "images/maps_128.png"
+  },
+  "permissions": [
+    "tabs",
+    "*://maps.google.com/",
+    "*://www.google.com/maps/",
+    "<all_urls>"
+  ]
+}
